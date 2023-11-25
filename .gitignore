@@ -1,0 +1,4 @@
+./roles/project-setup-role/molecule/centos8-integrated-tls
+./roles/project-setup-role/molecule/ubuntu2004-integrated-tls
+./roles/project-setup-role/molecule/centos8-file-notls
+./roles/project-setup-role/molecule/ubuntu2004-integrated-packer
