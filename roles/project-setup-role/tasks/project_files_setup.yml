@@ -36,19 +36,19 @@
     mode: '0644'
 
 # Gin Main File
-- name: Templating out main.go  file
+- name: Templating out Gin main.go file
   ansible.builtin.template:
     src: gin-main.go.j2
-    dest: '{{ install_location }}/api-data/main.go'
+    dest: '{{ install_location }}/docker/gin/main.go'
     owner: '{{ project_owner }}'
     group: '{{ project_group }}'
     mode: '0644'
 
 # Gin Bootstrap File
-- name: Templating out bootstrap.sh file
+- name: Templating out Gin bootstrap.sh file
   ansible.builtin.template:
-    src: nextjs-bootstrap.sh.j2
-    dest: '{{ install_location }}/api-data/bootstrap.sh'
+    src: gin-bootstrap.sh.j2
+    dest: '{{ install_location }}/docker/gin/bootstrap.sh'
     owner: '{{ project_owner }}'
     group: '{{ project_group }}'
     mode: '0644'

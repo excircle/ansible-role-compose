@@ -7,7 +7,7 @@
 # Variables
 ##############################################
 
-GOAPI_DIR="{{  }}"
+GOAPI_DIR="{{ gin_install_location }}"
 
 ##############################################
 # Build Phases
@@ -16,12 +16,16 @@ GOAPI_DIR="{{  }}"
 
 # Creating Directories which will house main.go
 phase_one () {
-	mkdir $GOAPI_DIR
-	cd $GOAPI_DIR
+    if [ -d "{{ gin_install_location }}" ]; then
+        echo "{{ gin_install_location }}"
+    else
+        mkdir {{ gin_install_location }}
+    fi
 }
 
 # Initializing Go project after Ansible COPYs main.go into container
 phase_two () {
+    cd $GOAPI_DIR
 	go mod init my-api
 	go mod tidy
 

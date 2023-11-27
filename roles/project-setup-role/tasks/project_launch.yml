@@ -15,12 +15,12 @@
   ansible.builtin.debug:
     var: compose_status
 
-# Post-Standup Provisioning of NextJS & Gin API Framework
-- name: Copy bootstrap.sh to the Docker container
+# Post-Standup Provisioning of NextJS
+- name: Copy bootstrap.sh to the NextJS Docker container
   ansible.builtin.command:
     cmd: "/usr/local/bin/docker cp {{ install_location }}/docker/nextjs/bootstrap.sh {{ nextjs_container_nickname }}:{{ nextjs_app_dir }}/bootstrap.sh"
 
-- name: Make bootstrap.sh script executable
+- name: Make NextJS bootstrap.sh script executable
   ansible.builtin.command:
     cmd: "/usr/local/bin/docker exec {{ nextjs_container_nickname }} chmod +x {{ nextjs_app_dir }}/bootstrap.sh"
 
@@ -29,3 +29,28 @@
     container: '{{ nextjs_container_nickname }}'
     chdir: '{{ nextjs_app_dir }}'
     command: /bin/bash -c "{{ nextjs_app_dir }}/bootstrap.sh"
+
+# Post-Standup Provisioning of Gin API Framework
+- name: Copy bootstrap.sh to the Docker Gin container
+  ansible.builtin.command:
+    cmd: "/usr/local/bin/docker cp {{ install_location }}/docker/gin/bootstrap.sh {{ gin_container_nickname }}:/go/src/bootstrap.sh"
+
+- name: Make bootstrap.sh script executable
+  ansible.builtin.command:
+    cmd: "/usr/local/bin/docker exec {{ gin_container_nickname }} chmod +x /go/src/bootstrap.sh"
+
+- name: Execute Phase 1 of bootstrap script inside Gin container
+  community.docker.docker_container_exec:
+    container: '{{ gin_container_nickname }}'
+    chdir: /go/src
+    command: /bin/bash -c "/go/src/bootstrap.sh 1"
+
+- name: Copy main.go to the Docker Gin container
+  ansible.builtin.command:
+    cmd: "/usr/local/bin/docker cp {{ install_location }}/docker/gin/main.go {{ gin_container_nickname }}:{{ gin_install_location }}/main.go"
+
+- name: Execute Phase 2 of bootstrap script inside Gin container
+  community.docker.docker_container_exec:
+    container: '{{ gin_container_nickname }}'
+    chdir: /go/src
+    command: /bin/bash -c "/go/src/bootstrap.sh 2"

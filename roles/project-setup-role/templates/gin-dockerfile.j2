@@ -2,4 +2,5 @@
 FROM golang:{{ gin_golang_docker_image }}
 RUN apt update
 RUN apt install vim git wget jq tree -y
+WORKDIR /go/src
 {% endif %}

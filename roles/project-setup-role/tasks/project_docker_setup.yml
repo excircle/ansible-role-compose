@@ -9,5 +9,5 @@
   community.docker.docker_image:
     name: '{{ gin_image_name }}'
     build:
-      path: "{{ install_location }}/docker/nextjs"
+      path: "{{ install_location }}/docker/gin"
     source: build
