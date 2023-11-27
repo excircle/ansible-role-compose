@@ -1,0 +1,13 @@
+- name: Build NextJS image locally
+  community.docker.docker_image:
+    name: '{{ nextjs_image_name }}'
+    build:
+      path: "{{ install_location }}/docker/nextjs"
+    source: build
+
+- name: Build Gin API Framework image locally
+  community.docker.docker_image:
+    name: '{{ gin_image_name }}'
+    build:
+      path: "{{ install_location }}/docker/nextjs"
+    source: build

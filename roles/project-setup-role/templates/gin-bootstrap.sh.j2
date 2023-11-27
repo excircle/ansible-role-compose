@@ -1,0 +1,54 @@
+{% if gin_api_enabled == true %}
+#!/bin/bash
+
+# Gin API Framework Bootstrap
+
+##############################################
+# Variables
+##############################################
+
+GOAPI_DIR="{{  }}"
+
+##############################################
+# Build Phases
+##############################################
+
+
+# Creating Directories which will house main.go
+phase_one () {
+	mkdir $GOAPI_DIR
+	cd $GOAPI_DIR
+}
+
+# Initializing Go project after Ansible COPYs main.go into container
+phase_two () {
+	go mod init my-api
+	go mod tidy
+
+	go install github.com/swaggo/swag/cmd/swag@latest
+
+	go get -u github.com/swaggo/gin-swagger
+	go get -u github.com/swaggo/files
+
+	swag init
+}
+
+##############################################
+# Phase Execution Logic 
+##############################################
+
+case "$1" in
+    "1")
+        phase_one
+        ;;
+    "2")
+        phase_two
+        ;;
+    *)
+        echo "Please provide an int as $1 argument"
+        ;;
+esac
+
+{% endif %}
+
+

@@ -1,0 +1,42 @@
+version: "3"
+services:
+{% if database_enabled == true %}
+  db:
+    container_name: {{ postgres_container_nickname }}
+    image: postgres:{{ postgres_image }}
+    restart: always
+    environment:
+      - POSTGRES_DB={{ postgres_db_name }}
+      - POSTGRES_USER={{ postgres_user }}
+      - POSTGRES_PASSWORD={{ postgres_password }}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+{% endif %}
+{% if nextjs_enabled == true %}
+  frontend:
+    container_name: {{ nextjs_container_nickname }}
+    image: {{ nextjs_image_name }}:latest
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - ./nextjs-data:/app
+    ports:
+      - 3000:3000
+{% endif %}
+{% if gin_api_enabled == true %}
+  api:
+    container_name: {{ gin_container_nickname }}
+    image: {{ gin_image_name }}:latest
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - ./api-data:/go/src/
+    ports:
+      - 8000:8000
+{% endif %}
+

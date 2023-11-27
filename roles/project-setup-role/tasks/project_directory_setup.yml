@@ -1,0 +1,60 @@
+---
+# PROJECT DIR
+- name: Setup main project directory
+  ansible.builtin.file:
+    path: "{{ install_location }}"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+# DATA DIRS
+- name: Ensure PostgreSQL Data Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/pg-data"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+- name: Ensure NextJS Data Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/nextjs-data"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+- name: Ensure API Data Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/api-data"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+# DOCKER DIRS
+- name: Ensure Docker Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/docker"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+- name: Ensure NextJS Docker Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/docker/nextjs"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+
+- name: Ensure Gin Docker Directory Exists
+  ansible.builtin.file:
+    path: "{{ install_location }}/docker/gin"
+    state: directory
+    owner: "{{ project_owner }}"
+    group: "{{ project_group }}"
+    mode: '0755'
+    

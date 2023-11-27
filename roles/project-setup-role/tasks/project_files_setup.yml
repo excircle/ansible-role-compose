@@ -1,0 +1,54 @@
+---
+# COMPOSE FILE
+- name: Templating out compose file
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: '{{ install_location }}/docker-compose.yaml'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'
+
+# NextJS Dockerfile
+- name: Templating out NextJS Docker file
+  ansible.builtin.template:
+    src: nextjs-dockerfile.j2
+    dest: '{{ install_location }}/docker/nextjs/Dockerfile'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'
+
+# NextJS Bootstrap File
+- name: Templating out NextJS Bootstrap file
+  ansible.builtin.template:
+    src: nextjs-bootstrap.sh.j2
+    dest: '{{ install_location }}/docker/nextjs/bootstrap.sh'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'
+
+# Gin Dockerfile
+- name: Templating out Gin Docker file
+  ansible.builtin.template:
+    src: gin-dockerfile.j2
+    dest: '{{ install_location }}/docker/gin/Dockerfile'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'
+
+# Gin Main File
+- name: Templating out main.go  file
+  ansible.builtin.template:
+    src: gin-main.go.j2
+    dest: '{{ install_location }}/api-data/main.go'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'
+
+# Gin Bootstrap File
+- name: Templating out bootstrap.sh file
+  ansible.builtin.template:
+    src: nextjs-bootstrap.sh.j2
+    dest: '{{ install_location }}/api-data/bootstrap.sh'
+    owner: '{{ project_owner }}'
+    group: '{{ project_group }}'
+    mode: '0644'

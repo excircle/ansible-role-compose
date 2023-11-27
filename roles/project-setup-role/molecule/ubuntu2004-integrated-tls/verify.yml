@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Verify Vault is up and uninitialized
+    uri:
+      url: https://127.0.0.1:8200/v1/sys/health
+      status_code: 501
+      validate_certs: false
+    run_once: true

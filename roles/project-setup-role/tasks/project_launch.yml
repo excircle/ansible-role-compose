@@ -1,0 +1,31 @@
+---
+# Docker-compose Standup
+- name: Tear down existing Compose instance(s)
+  ansible.builtin.shell:
+    cmd: /opt/homebrew/bin/docker-compose down
+    chdir: '{{ install_location }}'
+
+- name: Build and start services with docker-compose
+  ansible.builtin.shell:
+    cmd: /opt/homebrew/bin/docker-compose up -d
+    chdir: '{{ install_location }}'
+  register: compose_status
+
+- name: Confirm docker-compose up was successful
+  ansible.builtin.debug:
+    var: compose_status
+
+# Post-Standup Provisioning of NextJS & Gin API Framework
+- name: Copy bootstrap.sh to the Docker container
+  ansible.builtin.command:
+    cmd: "/usr/local/bin/docker cp {{ install_location }}/docker/nextjs/bootstrap.sh {{ nextjs_container_nickname }}:{{ nextjs_app_dir }}/bootstrap.sh"
+
+- name: Make bootstrap.sh script executable
+  ansible.builtin.command:
+    cmd: "/usr/local/bin/docker exec {{ nextjs_container_nickname }} chmod +x {{ nextjs_app_dir }}/bootstrap.sh"
+
+- name: Execute a script inside NextJS container
+  community.docker.docker_container_exec:
+    container: '{{ nextjs_container_nickname }}'
+    chdir: '{{ nextjs_app_dir }}'
+    command: /bin/bash -c "{{ nextjs_app_dir }}/bootstrap.sh"

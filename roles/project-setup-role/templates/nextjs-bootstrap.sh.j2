@@ -1,0 +1,23 @@
+{% if nextjs_enabled == true %}
+#!/bin/bash
+
+##############################################
+# NextJS Bootstrap
+##############################################
+NEXTDIR="/app/{{ nextjs_project_name }}"
+
+echo -e "Executing create-next-app"
+
+npx create-next-app@v13.5.6 {{ nextjs_project_name }} --import-alias '@/*' --javascript --eslint --tailwind --no-src-dir --no-app --use-npm
+
+
+if [ -d "$NEXTDIR" ]; then
+    cd $NEXTDIR;
+    npm run build
+else
+    echo "NEXTJS DIRECTORY NOT FOUND"
+fi
+
+{% endif %}
+
+

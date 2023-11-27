@@ -1,0 +1,20 @@
+---
+- name: Checking Project Name
+  fail:
+    msg: Variable project_name must be defined.
+  when: project_name is not defined
+
+- name: Checking Install Location
+  fail:
+    msg: Variable install_location must be defined.
+  when: install_location is not defined
+
+- name: Checking Project Owner
+  fail:
+    msg: Variable project_owner must be defined.
+  when: project_owner is not defined
+
+- name: Checking Project Group
+  fail:
+    msg: Variable project_group must be defined.
+  when: project_group is not defined

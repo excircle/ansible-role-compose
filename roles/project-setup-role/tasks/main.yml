@@ -1,0 +1,15 @@
+---
+- name: Checking input variables
+  include_tasks: check_input.yml
+  
+- name: Setup Project Dirs
+  include_tasks: project_directory_setup.yml
+
+- name: Setup Project files
+  include_tasks: project_files_setup.yml
+
+- name: Docker Builds
+  include_tasks: project_docker_setup.yml
+
+- name: Docker Launch
+  include_tasks: project_launch.yml
