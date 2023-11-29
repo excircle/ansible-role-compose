@@ -4,6 +4,7 @@
   ansible.builtin.shell:
     cmd: /opt/homebrew/bin/docker-compose down
     chdir: '{{ install_location }}'
+  ignore_errors: true
 
 - name: Build and start services with docker-compose
   ansible.builtin.shell:

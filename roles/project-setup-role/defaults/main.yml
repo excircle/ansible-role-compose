@@ -1,26 +1,20 @@
----
-# Install vars
-project_name: ai-football
-install_location: /Users/akalaj/Documents/scratch/project-dir
-project_owner: akalaj
-project_group: staff
-
-# Docker vars
 database_enabled: true
+gin_api_enabled: true
+gin_container_nickname: gin-container
+gin_golang_docker_image: 1.20-bookworm
+gin_image_name: demo-project-api
+gin_install_location: /go/src/api
+install_location: /Users/akalaj/Documents/my-apps/demo-project
+nextjs_app_dir: /app
+nextjs_container_nickname: nextjs-container
+nextjs_enabled: true
+nextjs_image_name: demo-project-ui
+nextjs_project_name: demo-project
+postgres_container_nickname: pg-container
+postgres_db_name: demo-project-db
 postgres_image: 16.1-bookworm
 postgres_password: sqlpass
-postgres_db_name: '{{ project_name }}-db'
-postgres_user: '{{ project_name }}-user'
-postgres_container_nickname: pg-container
-
-nextjs_enabled: true
-nextjs_image_name: '{{ project_name }}-ui'
-nextjs_project_name: '{{ project_name }}'
-nextjs_container_nickname: nextjs-container
-nextjs_app_dir: /app
-
-gin_api_enabled: true
-gin_golang_docker_image: 1.20-bookworm
-gin_image_name: '{{ project_name }}-api'
-gin_install_location: /go/src/api
-gin_container_nickname: gin-container
+postgres_user: demo-project-usr
+project_group: staff
+project_name: demo-project
+project_owner: akalaj
